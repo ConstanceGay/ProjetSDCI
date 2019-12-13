@@ -1,12 +1,12 @@
 FROM node:latest
-RUN   apt-get update && apt-get install -y \
-      net-tools
+RUN 	apt-get update && apt-get install -y \
+      	net-tools \
+	&& npm install express \
+	&& npm install yargs \
+        && npm install systeminformation 
 
-ENV VIM_EMU_CMD wget  http://homepages.laas.fr/smedjiah/tmp/gateway.js \  
- && wget  http://homepages.laas.fr/smedjiah/tmp/device.js \
-&& npm install express \
-&& npm install yargs \
-&& npm install systeminformation \
+ENV VIM_EMU_CMD wget  	http://homepages.laas.fr/smedjiah/tmp/gateway.js \  
+ 			&& wget  http://homepages.laas.fr/smedjiah/tmp/device.js \
 && node device.js --local_ip "127.0.0.1" --local_port 9001 --local_name "dev1" --remote_ip "127.0.0.1" --remote_port 8282 --remote_name "gwf1" --send_period 3000 \
      && node device.js --local_ip "127.0.0.1" --local_port 9002 --local_name "dev2" --remote_ip "127.0.0.1" --remote_port 8282 --remote_name "gwf1" --send_period 3000 \
      && node device.js --local_ip "127.0.0.1" --local_port 9003 --local_name "dev3" --remote_ip "127.0.0.1" --remote_port 8282 --remote_name "gwf1" --send_period 3000 \
