@@ -67,24 +67,32 @@ def create_topology():
     rapi1.start()
 
     info('*** Adding docker containers\n')
-    GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:zone")
+    GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
+    dev1 = net.addDocker('srv', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1")
     GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
     srv = net.addDocker('srv', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
 
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
     s2 = net.addSwitch('s2')
+    s3 = net.addSwitch('s3')
 
     info('*** Creating links\n')
+    net.addLink(s3,dev1)
+    net.addLink(s3, GF)
+    net.addLink(s3,s2)
+
+    net.addLink(s2, s1)
+
     net.addLink(srv, s1)
     net.addLink(s1, GI)
-    net.addLink(s2, GF)
-    net.addLink(s2, s1)
+
+
 
     info('*** Starting network\n')
     net.start()
     info('*** Testing connectivity\n')
-    net.ping([srv, GI])
+    net.ping([srv, dev1])
     info('*** Running CLI\n')
     CLI(net)
     info('*** Stopping network')
