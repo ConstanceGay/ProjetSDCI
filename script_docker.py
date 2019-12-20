@@ -19,8 +19,8 @@ GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
 #srv = net.addDocker('srv', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
 
 info('*** Adding switches\n')
-s1 = net.addSwitch('s1')
-#s2 = net.addSwitch('s2')
+#s1 = net.addSwitch('s1')
+s2 = net.addSwitch('s2')
 
 info('*** Creating links\n')
 #net.addLink(srv, s1)
