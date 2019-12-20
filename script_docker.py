@@ -41,6 +41,13 @@ logging.getLogger('api.openstack.heat').setLevel(logging.DEBUG)
 logging.getLogger('api.openstack.heat.parser').setLevel(logging.DEBUG)
 logging.getLogger('api.openstack.glance').setLevel(logging.DEBUG)
 logging.getLogger('api.openstack.helper').setLevel(logging.DEBUG)
+
+from mininet.net import Containernet
+from mininet.node import Controller
+from mininet.cli import CLI
+from mininet.link import TCLink
+from mininet.log import info, setLogLevel
+setLogLevel('info')
 setLogLevel('info')
 
 
