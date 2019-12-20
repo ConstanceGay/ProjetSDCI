@@ -78,8 +78,8 @@ def create_topology():
     info('*** Creating links\n')
     net.addLink(srv, s1)
     net.addLink(s1, GI)
-    net.addLink(GI, s2)
     net.addLink(s2, GF)
+    net.addLink(s2, s1)
 
     info('*** Starting network\n')
     net.start()
