@@ -68,7 +68,7 @@ def create_topology():
 
     info('*** Adding docker containers\n')
     GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
-    dev1 = net.addDocker('srv', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1")
+    dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1")
     GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
     srv = net.addDocker('srv', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
 
@@ -82,12 +82,11 @@ def create_topology():
     net.addLink(s3, GF)
     net.addLink(s3,s2)
 
+    net.addLink(s2, dc1)
     net.addLink(s2, s1)
 
     net.addLink(srv, s1)
     net.addLink(s1, GI)
-
-
 
     info('*** Starting network\n')
     net.start()
