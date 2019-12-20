@@ -1,6 +1,7 @@
 FROM node:latest
 RUN   apt-get update && apt-get install -y \
-      net-tools \
+      net-tools \	
+	tcpdump \
       && npm install express \
           && npm install yargs \
           && npm install systeminformation 
