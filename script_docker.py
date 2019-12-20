@@ -16,7 +16,7 @@ net.addController('c0')
 info('*** Adding docker containers\n')
 GF = net.addDocker('dockerGF', ip='10.0.0.201', dimage="constancegay/projet_sdci:zone")
 GI = net.addDocker('dockerGI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
-Server = net.addDocker('dockerServer', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
+Server = net.addDocker('dockerS', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
 
 info('*** Adding switches\n')
 s1 = net.addSwitch('s1')
