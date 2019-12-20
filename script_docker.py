@@ -23,7 +23,7 @@ s1 = net.addSwitch('s1')
 s2 = net.addSwitch('s2')
 
 info('*** Creating links\n')
-net.addLink(Server, s1)
+net.addLink(srv, s1)
 net.addLink(s1, GI)
 net.addLink(GI, s2)
 net.addLink(s2, GF)
