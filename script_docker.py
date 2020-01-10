@@ -70,11 +70,23 @@ def create_topology():
     info('*** Adding docker containers\n')
     srv = net.addDocker('srv', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
     time.sleep(5)
-    GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
+    GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:gateway",
+                       environment={"loc_ip": "10.0.0.202",
+                                    "loc_port": "8181",
+                                    "loc_name": "srv",
+                                    "rem_ip": "10.0.0.203",
+                                    "rem_port": "8080",
+                                    "rem_name": "srv"})
     time.sleep(5)
 
     #ZONE 1
-    GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
+    gf1 = net.addDocker('GF1', ip='10.0.0.201', dimage="constancegay/projet_sdci:gateway",
+                        environment={"loc_ip": "10.0.0.201",
+                                     "loc_port": "8282",
+                                     "loc_name": "GF1",
+                                     "rem_ip": "10.0.0.202",
+                                     "rem_port": "8181",
+                                     "rem_name": "GI"})
     time.sleep(5)
     dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev",
                          environment={"loc_ip": "10.0.0.205",
@@ -82,21 +94,21 @@ def create_topology():
                                       "loc_name": "dev1",
                                       "rem_ip": "10.0.0.201",
                                       "rem_port": "8282",
-                                      "rem_name": "GF"})
+                                      "rem_name": "GF1"})
     dev2 = net.addDocker('dev2', ip='10.0.0.206', dimage="constancegay/projet_sdci:dev",
                          environment={"loc_ip": "10.0.0.206",
                                       "loc_port": "9002",
                                       "loc_name": "dev2",
                                       "rem_ip": "10.0.0.201",
                                       "rem_port": "8282",
-                                      "rem_name": "GF"})
+                                      "rem_name": "GF1"})
     dev3 = net.addDocker('dev3', ip='10.0.0.207', dimage="constancegay/projet_sdci:dev",
                          environment={"loc_ip": "10.0.0.207",
                                       "loc_port": "9003",
                                       "loc_name": "dev3",
                                       "rem_ip": "10.0.0.201",
                                       "rem_port": "8282",
-                                      "rem_name": "GF"})
+                                      "rem_name": "GF1"})
 
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
@@ -110,14 +122,12 @@ def create_topology():
     net.addLink(s2, s1)
     net.addLink(s2, dc1)
 
+    #ZONE 1
     net.addLink(s3, s2)
-    net.addLink(s3, GF)
+    net.addLink(s3, gf1)
     net.addLink(s3, dev1)
     net.addLink(s3, dev2)
     net.addLink(s3, dev3)
-
-
-
 
 
     info('*** Starting network\n')
