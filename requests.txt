@@ -1,0 +1,3 @@
+https://github.com/containernet/vim-emu/wiki/APIs --> VIM-EMU API
+
+curl -X PUT http://127.0.0.1:5001/restapi/compute/cvim1/new_vnf -H 'Content-Type: application/json' -d '{"name"="GI2", image="constancegay/projet_sdci:gatewayD",, "network":"(id=GI2-eth0,ip=10.0.0.212/24)"}'
