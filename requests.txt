@@ -9,17 +9,15 @@ curl -X PUT http://127.0.0.1:5001/restapi/compute/dc1/GI2 -H 'Content-Type: appl
  curl -X POST -d '{
     "dpid": 1,
     "priority": 11111,
-    "flags": 1,
     "match":{
-        "in_port":1
+        "ipv4_src":10.0.0.212,
+	"ipv4_dst":10.0.0.202
     },
     "actions":[
         {
-            "type":"OUTPUT",
-            "port": 2
+		"set_field=ipv4_dst->10.0.0.216,
+		"type":"OUTPUT"
         }
     ]
  }' http://localhost:8080/stats/flowentry/add
-
- curl -X POST -d '{"dpid": 1,"priority": 11111, "in_port":"1", "eth_type":"0x0800","ipv4_src":"10.0.0.212", "ipv4_dst":"10.0.0.216", "actions":"set_field=ipv4_dst->10.0.0.3,output=3"}'http://localhost:8080/stats/flowentry/add
 
