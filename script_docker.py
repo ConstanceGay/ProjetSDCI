@@ -74,7 +74,7 @@ def create_topology():
     time.sleep(5)
     GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
     time.sleep(5)
-    dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1")
+    dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1", environment={"msg": "hehehe"})
 
 
 
