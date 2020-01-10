@@ -67,10 +67,12 @@ def create_topology():
     rapi1.start()
 
     info('*** Adding docker containers\n')
+    srv = net.addDocker('srv', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
+    GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
     GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
     dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1")
-    GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
-    srv = net.addDocker('srv', ip='10.0.0.203', dimage="constancegay/projet_sdci:server")
+
+
 
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
