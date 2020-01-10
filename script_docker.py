@@ -74,9 +74,13 @@ def create_topology():
     time.sleep(5)
     GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
     time.sleep(5)
-    dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev1", environment={"msg": "hehehe"})
-
-
+    dev1 = net.addDocker('dev', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev",
+                         environment={"loc_ip": "10.0.0.204",
+                                      "loc_port": "9001",
+                                      "loc_name": "dev1",
+                                      "rem_ip": "10.0.0.201",
+                                      "rem_port": "8282",
+                                      "rem_name": "GF"})
 
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
@@ -84,9 +88,9 @@ def create_topology():
     s3 = net.addSwitch('s3')
 
     info('*** Creating links\n')
-    net.addLink(s3,dev1)
+    net.addLink(s3, dev1)
     net.addLink(s3, GF)
-    net.addLink(s3,s2)
+    net.addLink(s3, s2)
 
     net.addLink(s2, dc1)
     net.addLink(s2, s1)
