@@ -72,12 +72,28 @@ def create_topology():
     time.sleep(5)
     GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:GI")
     time.sleep(5)
+
+    #ZONE 1
     GF = net.addDocker('GF', ip='10.0.0.201', dimage="constancegay/projet_sdci:GF")
     time.sleep(5)
-    dev1 = net.addDocker('dev', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.204",
+    dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev",
+                         environment={"loc_ip": "10.0.0.205",
                                       "loc_port": "9001",
                                       "loc_name": "dev1",
+                                      "rem_ip": "10.0.0.201",
+                                      "rem_port": "8282",
+                                      "rem_name": "GF"})
+    dev2 = net.addDocker('dev2', ip='10.0.0.206', dimage="constancegay/projet_sdci:dev",
+                         environment={"loc_ip": "10.0.0.206",
+                                      "loc_port": "9002",
+                                      "loc_name": "dev2",
+                                      "rem_ip": "10.0.0.201",
+                                      "rem_port": "8282",
+                                      "rem_name": "GF"})
+    dev3 = net.addDocker('dev3', ip='10.0.0.207', dimage="constancegay/projet_sdci:dev",
+                         environment={"loc_ip": "10.0.0.207",
+                                      "loc_port": "9003",
+                                      "loc_name": "dev3",
                                       "rem_ip": "10.0.0.201",
                                       "rem_port": "8282",
                                       "rem_name": "GF"})
@@ -88,15 +104,21 @@ def create_topology():
     s3 = net.addSwitch('s3')
 
     info('*** Creating links\n')
-    net.addLink(s3, dev1)
-    net.addLink(s3, GF)
-    net.addLink(s3, s2)
-
-    net.addLink(s2, dc1)
-    net.addLink(s2, s1)
-
-    net.addLink(srv, s1)
+    net.addLink(s1, srv)
     net.addLink(s1, GI)
+
+    net.addLink(s2, s1)
+    net.addLink(s2, dc1)
+
+    net.addLink(s3, s2)
+    net.addLink(s3, GF)
+    net.addLink(s3, dev1)
+    net.addLink(s3, dev2)
+    net.addLink(s3, dev3)
+
+
+
+
 
     info('*** Starting network\n')
     net.start()
