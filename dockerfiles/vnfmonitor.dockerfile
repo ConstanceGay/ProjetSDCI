@@ -13,4 +13,4 @@ RUN	apt-get update && apt-get install -y \
 	&& mv /usr/sbin/tcpdump /usr/bin/tcpdump \
 	&& cat monitor.js > /home/monitor.js
 
-ENTRYPOINT node monitor.js --local_ip "10.0.0.204" --local_port 8383 --local_name "vnfmonitor" --srv_ip "10.0.0.203" --srv_port 8080 --srv_cpu_port 8081 --srv_name "srv" --gi_ip "10.0.0.202" --gi_port 8181 --gi_cpu_port 8182 --gi_name "GI" ; tail -f /dev/null
+ENTRYPOINT node monitor.js --local_ip "10.0.0.204" --local_port 8383 --local_name "mon" --srv_ip "10.0.0.203" --srv_port 8080 --srv_cpu_port 8081 --srv_name "srv" --gi_ip "10.0.0.202" --gi_port 8181 --gi_cpu_port 8182 --gi_name "GI" ; tail -f /dev/null

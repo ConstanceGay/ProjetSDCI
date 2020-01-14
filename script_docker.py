@@ -26,6 +26,11 @@
 import logging
 import time
 from mininet.log import setLogLevel
+from mininet.net import Containernet
+from mininet.node import Controller
+from mininet.cli import CLI
+from mininet.link import TCLink
+from mininet.log import info, setLogLevel
 from emuvim.dcemulator.net import DCNetwork
 from emuvim.api.rest.rest_api_endpoint import RestApiEndpoint
 from emuvim.api.openstack.openstack_api_endpoint import OpenstackApiEndpoint
@@ -43,12 +48,6 @@ logging.getLogger('api.openstack.heat.parser').setLevel(logging.DEBUG)
 logging.getLogger('api.openstack.glance').setLevel(logging.DEBUG)
 logging.getLogger('api.openstack.helper').setLevel(logging.DEBUG)
 
-from mininet.net import Containernet
-from mininet.node import Controller
-from mininet.cli import CLI
-from mininet.link import TCLink
-from mininet.log import info, setLogLevel
-setLogLevel('info')
 setLogLevel('info')
 
 
@@ -78,6 +77,8 @@ def create_topology():
                                     "rem_port": "8080",
                                     "rem_name": "srv"})
     time.sleep(5)
+
+    mon = net.addDocker('mon', ip='10.0.0.204', dimage="constancegay/projet_sdci:mon")
 
     # GFs
     gf1 = net.addDocker('GF1', ip='10.0.0.201', dimage="constancegay/projet_sdci:gateway",
@@ -184,6 +185,7 @@ def create_topology():
     info('*** Creating links\n')
     net.addLink(s1, srv)
     net.addLink(s1, GI)
+    net.addLink(s1, mon)
 
     net.addLink(s2, s1)
     net.addLink(s2, dc1)
