@@ -19,16 +19,18 @@ var argv = require('yargs').argv;
 // --local_name
 // --srv_ip
 // --srv_port
+// --srv_cpu_port
 // --srv_name
 // --gi_ip
 // --gi_port
+// --gi_cpu_port
 // --gi_name
 
 
 
 var LOCAL_ENDPOINT = {IP : argv.local_ip, PORT : argv.local_port, NAME : argv.local_name};
-var SRV_ENDPOINT = {IP : argv.srv_ip, PORT : argv.srv_port, NAME : argv.srv_name};
-var GI_ENDPOINT = {IP : argv.gi_ip, PORT : argv.gi_port, NAME : argv.gi_name};
+var SRV_ENDPOINT = {IP : argv.srv_ip, PORT : argv.srv_port, CPU_PORT : argv.srv_cpu_port, NAME : argv.srv_name};
+var GI_ENDPOINT = {IP : argv.gi_ip, PORT : argv.gi_port, CPU_PORT : argv.gi_cpu_port, NAME : argv.gi_name};
 
 
 
@@ -55,8 +57,8 @@ function getLatency(ip, port){
 
 
 app.get('/monitor/', function(req, res) {
-    cpuSRV = askCpu(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
-    cpuGI = askCpu(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
+    cpuSRV = askCpu(SRV_ENDPOINT.IP, SRV_ENDPOINT.CPU_PORT);
+    cpuGI = askCpu(GI_ENDPOINT.IP, GI_ENDPOINT.CPU_PORT);
     latSRV = getLatency(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
     latGI = getLatency(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
     res.send({CPUSRV : cpuSRV, CPUGI = cpuGI, LATSRV : latSRV, LATGI : latGI});
