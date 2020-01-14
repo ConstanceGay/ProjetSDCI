@@ -20,5 +20,7 @@ ENV	rem_ip="10.0.0.202"
 ENV	rem_port="8181"
 ENV	rem_name="GI"
 
-ENTRYPOINT node gateway.js --local_ip $loc_ip --local_port $loc_port --local_name $loc_name --remote_ip $rem_ip --remote_port $rem_port --remote_name $rem_name && node cpulat.js --local_ip "10.0.0.202" --local_port 8181 --local_name "GI" --monitor_ip "10.0.0.204" --monitor_port 8383 --monitor_name "mon" ; tail -f /dev/null
+ENTRYPOINT node cpulat.js --local_ip "10.0.0.202" --local_port 8181 --local_name "GI" --monitor_ip "10.0.0.204" --monitor_port 8383 --monitor_name "mon" ; tail -f /dev/null
+
+#node gateway.js --local_ip $loc_ip --local_port $loc_port --local_name $loc_name --remote_ip $rem_ip --remote_port $rem_port --remote_name $rem_name 
 

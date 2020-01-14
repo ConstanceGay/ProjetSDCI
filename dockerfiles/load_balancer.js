@@ -2,6 +2,7 @@ var http = require('http');
 var url = require('url');
 const forward = require('http-forward');
 var index = 1;
+var argv = require('yargs').argv;
 
 var LOCAL_ENDPOINT = {IP : argv.local_ip, PORT : argv.local_port, NAME : argv.local_name};
 var REMOTE_ENDPOINT1 = {IP : argv.remote_ip, PORT : argv.remote_port, NAME : argv.remote_name};
