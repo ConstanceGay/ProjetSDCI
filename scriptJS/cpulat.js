@@ -1,13 +1,14 @@
 /**
  *  Author: Constance GAY & Pierre BINET
- *  File : monitor.js
+ *  File : cpulat.js
  *  Version : 0.1.0
  */
+
+
 
 var express = require('express')
 var app = express()
 app.use(express.json()) // for parsing application/json
-
 
 var request = require('request');
 const si = require('systeminformation');
@@ -21,6 +22,7 @@ var argv = require('yargs').argv;
 // --monitor_name
 
 
+
 var LOCAL_ENDPOINT = {IP : argv.local_ip, PORT : argv.local_port, NAME : argv.local_name};
 var MONITOR_ENDPOINT = {IP : argv.monitor_ip, PORT : argv.monitor_port, NAME : argv.monitor_name};
 
@@ -28,9 +30,8 @@ var MONITOR_ENDPOINT = {IP : argv.monitor_ip, PORT : argv.monitor_port, NAME : a
 
 var os = require("os");
 
-//Create function to get CPU information
+// found on https://gist.github.com/bag-man/5570809
 function cpuAverage() {
-
   //Initialise sum of idle and time of cores and fetch CPU info
   var totalIdle = 0, totalTick = 0;
   var cpus = os.cpus();
@@ -54,52 +55,29 @@ function cpuAverage() {
   return {idle: totalIdle / cpus.length,  total: totalTick / cpus.length};
 }
 
-//Grab first CPU Measure
-var startMeasure = cpuAverage();
-
-//Set delay for second Measure
-setTimeout(function() { 
-
-  //Grab second Measure
-  var endMeasure = cpuAverage(); 
-
-  //Calculate the difference in idle and total time between the measures
-  var idleDifference = endMeasure.idle - startMeasure.idle;
-  var totalDifference = endMeasure.total - startMeasure.total;
-
-  //Calculate the average percentage CPU usage
-  var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);
-
-  //Output result to console
-  console.log(percentageCPU + "% CPU Usage.");
-
-}, 100);
-
-
-
-
-
-// load average for the past 1000 milliseconds
-
-var cpuDataItem = CPULoad(1000, (load) => console.log((100*load).toFixed(1)));
-
-function sendData() {
-    doPOST(
-        'http://' + MONITOR_ENDPOINT.IP + ':' + MONITOR_ENDPOINT.PORT + '/cpudata/'+ LOCAL_ENDPOINT.NAME,
-        {
-            Name : LOCAL_ENDPOINT.NAME,
-            Data : cpuDataItem++,
-            Time : Date.now(),
-        },
-        function(error, response, respBody) {
-            console.log(respBody);
-        }
-    );
+// found on https://gist.github.com/bag-man/5570809
+function CPULoad(avgTime, callback) {
+  this.samples = [];
+  this.samples[1] = cpuAverage();
+  this.refresh = setInterval(() => {
+    this.samples[0] = this.samples[1];
+    this.samples[1] = cpuAverage();
+    var totalDiff = this.samples[1].total - this.samples[0].total;
+    var idleDiff = this.samples[1].idle - this.samples[0].idle;
+    callback(1 - idleDiff / totalDiff);
+  }, avgTime);
 }
 
+
+
 app.get('/cpulat', function(req, res) {
-    sendData()
+    // load average for the past 1000 milliseconds
+    var cpuDataItem = CPULoad(1000, (load) => console.log((100*load).toFixed(1)));
+
+    res.write(cpuDataItem.toString());
+    res.end();
 });
+
 
 
 app.listen(LOCAL_ENDPOINT.PORT , function () {
