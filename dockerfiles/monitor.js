@@ -62,8 +62,7 @@ app.get('/monitor/', function(req, res) {
     latSRV = getLatency(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
     latGI = getLatency(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
     res.send({CPUSRV : cpuSRV}, {CPUGI : cpuGI}, {LATSRV : latSRV}, {LATGI : latGI});
-    res.end();
-}
+});
 
 
 
