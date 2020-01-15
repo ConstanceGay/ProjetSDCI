@@ -16,7 +16,7 @@ var argv = require('yargs').argv;
 
 
 var LOCAL_ENDPOINT = {IP : argv.local_ip, PORT : argv.local_port, NAME : argv.local_name};
-var MONITOR_ENDPOINT = {IP : argv.monitor_ip, PORT : argv.monitor_port, NAME : argv.monitor_name};
+// var MONITOR_ENDPOINT = {IP : argv.monitor_ip, PORT : argv.monitor_port, NAME : argv.monitor_name};
 
 const E_OK              = 200;
 const E_CREATED         = 201;
