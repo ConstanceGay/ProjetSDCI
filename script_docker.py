@@ -89,23 +89,25 @@ def create_topology():
                                      "rem_ip": "10.0.0.202",
                                      "rem_port": "8181",
                                      "rem_name": "GI"})
-"""
-    gf2 = net.addDocker('GF2', ip='10.0.0.208', dimage="constancegay/projet_sdci:gateway",
-                        environment={"loc_ip": "10.0.0.208",
-                                     "loc_port": "9004",
-                                     "loc_name": "GF2",
-                                     "rem_ip": "10.0.0.202",
-                                     "rem_port": "8181",
-                                     "rem_name": "GI"})
 
-    gf3 = net.addDocker('GF3', ip='10.0.0.212', dimage="constancegay/projet_sdci:gateway",
-                        environment={"loc_ip": "10.0.0.212",
-                                     "loc_port": "9008",
-                                     "loc_name": "GF3",
-                                     "rem_ip": "10.0.0.202",
-                                     "rem_port": "8181",
-                                     "rem_name": "GI"})
-"""
+    """
+        gf2 = net.addDocker('GF2', ip='10.0.0.208', dimage="constancegay/projet_sdci:gateway",
+                            environment={"loc_ip": "10.0.0.208",
+                                         "loc_port": "9004",
+                                         "loc_name": "GF2",
+                                         "rem_ip": "10.0.0.202",
+                                         "rem_port": "8181",
+                                         "rem_name": "GI"})
+
+        gf3 = net.addDocker('GF3', ip='10.0.0.212', dimage="constancegay/projet_sdci:gateway",
+                            environment={"loc_ip": "10.0.0.212",
+                                         "loc_port": "9008",
+                                         "loc_name": "GF3",
+                                         "rem_ip": "10.0.0.202",
+                                         "rem_port": "8181",
+                                         "rem_name": "GI"})
+    """
+
     time.sleep(5)
     # ZONE 1 devices
     dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev",
@@ -129,59 +131,61 @@ def create_topology():
                                       "rem_ip": "10.0.0.201",
                                       "rem_port": "8282",
                                       "rem_name": "GF1"})
-"""
-    # ZONE 2 devices
-    dev4 = net.addDocker('dev4', ip='10.0.0.209', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.209",
-                                      "loc_port": "9005",
-                                      "loc_name": "dev4",
-                                      "rem_ip": "10.0.0.208",
-                                      "rem_port": "9004",
-                                      "rem_name": "GF2"})
-    dev5 = net.addDocker('dev5', ip='10.0.0.210', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.210",
-                                      "loc_port": "9006",
-                                      "loc_name": "dev5",
-                                      "rem_ip": "10.0.0.208",
-                                      "rem_port": "9004",
-                                      "rem_name": "GF2"})
-    dev6 = net.addDocker('dev6', ip='10.0.0.211', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.211",
-                                      "loc_port": "9007",
-                                      "loc_name": "dev6",
-                                      "rem_ip": "10.0.0.208",
-                                      "rem_port": "9004",
-                                      "rem_name": "GF2"})
 
-    # ZONE 3 devices
-    dev7 = net.addDocker('dev7', ip='10.0.0.213', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.213",
-                                      "loc_port": "9009",
-                                      "loc_name": "dev7",
-                                      "rem_ip": "10.0.0.212",
-                                      "rem_port": "9008",
-                                      "rem_name": "GF3"})
-    dev8 = net.addDocker('dev8', ip='10.0.0.214', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.214",
-                                      "loc_port": "9010",
-                                      "loc_name": "dev8",
-                                      "rem_ip": "10.0.0.212",
-                                      "rem_port": "9008",
-                                      "rem_name": "GF3"})
-    dev9 = net.addDocker('dev9', ip='10.0.0.215', dimage="constancegay/projet_sdci:dev",
-                         environment={"loc_ip": "10.0.0.215",
-                                      "loc_port": "9011",
-                                      "loc_name": "dev9",
-                                      "rem_ip": "10.0.0.212",
-                                      "rem_port": "9008",
-                                      "rem_name": "GF3"})
-"""
+    """
+        # ZONE 2 devices
+        dev4 = net.addDocker('dev4', ip='10.0.0.209', dimage="constancegay/projet_sdci:dev",
+                             environment={"loc_ip": "10.0.0.209",
+                                          "loc_port": "9005",
+                                          "loc_name": "dev4",
+                                          "rem_ip": "10.0.0.208",
+                                          "rem_port": "9004",
+                                          "rem_name": "GF2"})
+        dev5 = net.addDocker('dev5', ip='10.0.0.210', dimage="constancegay/projet_sdci:dev",
+                             environment={"loc_ip": "10.0.0.210",
+                                          "loc_port": "9006",
+                                          "loc_name": "dev5",
+                                          "rem_ip": "10.0.0.208",
+                                          "rem_port": "9004",
+                                          "rem_name": "GF2"})
+        dev6 = net.addDocker('dev6', ip='10.0.0.211', dimage="constancegay/projet_sdci:dev",
+                             environment={"loc_ip": "10.0.0.211",
+                                          "loc_port": "9007",
+                                          "loc_name": "dev6",
+                                          "rem_ip": "10.0.0.208",
+                                          "rem_port": "9004",
+                                          "rem_name": "GF2"})
+
+        # ZONE 3 devices
+        dev7 = net.addDocker('dev7', ip='10.0.0.213', dimage="constancegay/projet_sdci:dev",
+                             environment={"loc_ip": "10.0.0.213",
+                                          "loc_port": "9009",
+                                          "loc_name": "dev7",
+                                          "rem_ip": "10.0.0.212",
+                                          "rem_port": "9008",
+                                          "rem_name": "GF3"})
+        dev8 = net.addDocker('dev8', ip='10.0.0.214', dimage="constancegay/projet_sdci:dev",
+                             environment={"loc_ip": "10.0.0.214",
+                                          "loc_port": "9010",
+                                          "loc_name": "dev8",
+                                          "rem_ip": "10.0.0.212",
+                                          "rem_port": "9008",
+                                          "rem_name": "GF3"})
+        dev9 = net.addDocker('dev9', ip='10.0.0.215', dimage="constancegay/projet_sdci:dev",
+                             environment={"loc_ip": "10.0.0.215",
+                                          "loc_port": "9011",
+                                          "loc_name": "dev9",
+                                          "rem_ip": "10.0.0.212",
+                                          "rem_port": "9008",
+                                          "rem_name": "GF3"})
+    """
+
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
     s2 = net.addSwitch('s2')
     s3 = net.addSwitch('s3')
- #   s4 = net.addSwitch('s4')
- #   s5 = net.addSwitch('s5')
+    #   s4 = net.addSwitch('s4')
+    #   s5 = net.addSwitch('s5')
 
     info('*** Creating links\n')
     net.addLink(s1, srv)
@@ -192,27 +196,29 @@ def create_topology():
     net.addLink(s2, dc1)
 
     net.addLink(s3, s2)
-  #  net.addLink(s4, s2)
-  #  net.addLink(s5, s2)
+    #  net.addLink(s4, s2)
+    #  net.addLink(s5, s2)
 
     # ZONE 1
     net.addLink(s3, gf1)
     net.addLink(s3, dev1)
     net.addLink(s3, dev2)
     net.addLink(s3, dev3)
-"""
-    # ZONE 2
-    net.addLink(s4, gf2)
-    net.addLink(s4, dev4)
-    net.addLink(s4, dev5)
-    net.addLink(s4, dev6)
 
-    # ZONE 3
-    net.addLink(s5, gf3)
-    net.addLink(s5, dev7)
-    net.addLink(s5, dev8)
-    net.addLink(s5, dev9)
-"""
+    """
+        # ZONE 2
+        net.addLink(s4, gf2)
+        net.addLink(s4, dev4)
+        net.addLink(s4, dev5)
+        net.addLink(s4, dev6)
+
+        # ZONE 3
+        net.addLink(s5, gf3)
+        net.addLink(s5, dev7)
+        net.addLink(s5, dev8)
+        net.addLink(s5, dev9)
+    """
+
     info('*** Starting network\n')
     net.start()
     info('*** Testing connectivity\n')
