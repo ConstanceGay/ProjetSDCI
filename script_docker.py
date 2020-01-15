@@ -89,7 +89,7 @@ def create_topology():
                                      "rem_ip": "10.0.0.202",
                                      "rem_port": "8181",
                                      "rem_name": "GI"})
-
+"""
     gf2 = net.addDocker('GF2', ip='10.0.0.208', dimage="constancegay/projet_sdci:gateway",
                         environment={"loc_ip": "10.0.0.208",
                                      "loc_port": "9004",
@@ -105,7 +105,7 @@ def create_topology():
                                      "rem_ip": "10.0.0.202",
                                      "rem_port": "8181",
                                      "rem_name": "GI"})
-
+"""
     time.sleep(5)
     # ZONE 1 devices
     dev1 = net.addDocker('dev1', ip='10.0.0.205', dimage="constancegay/projet_sdci:dev",
@@ -129,7 +129,7 @@ def create_topology():
                                       "rem_ip": "10.0.0.201",
                                       "rem_port": "8282",
                                       "rem_name": "GF1"})
-
+"""
     # ZONE 2 devices
     dev4 = net.addDocker('dev4', ip='10.0.0.209', dimage="constancegay/projet_sdci:dev",
                          environment={"loc_ip": "10.0.0.209",
@@ -175,13 +175,13 @@ def create_topology():
                                       "rem_ip": "10.0.0.212",
                                       "rem_port": "9008",
                                       "rem_name": "GF3"})
-
+"""
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
     s2 = net.addSwitch('s2')
     s3 = net.addSwitch('s3')
-    s4 = net.addSwitch('s4')
-    s5 = net.addSwitch('s5')
+ #   s4 = net.addSwitch('s4')
+ #   s5 = net.addSwitch('s5')
 
     info('*** Creating links\n')
     net.addLink(s1, srv)
@@ -192,15 +192,15 @@ def create_topology():
     net.addLink(s2, dc1)
 
     net.addLink(s3, s2)
-    net.addLink(s4, s2)
-    net.addLink(s5, s2)
+  #  net.addLink(s4, s2)
+  #  net.addLink(s5, s2)
 
     # ZONE 1
     net.addLink(s3, gf1)
     net.addLink(s3, dev1)
     net.addLink(s3, dev2)
     net.addLink(s3, dev3)
-
+"""
     # ZONE 2
     net.addLink(s4, gf2)
     net.addLink(s4, dev4)
@@ -212,7 +212,7 @@ def create_topology():
     net.addLink(s5, dev7)
     net.addLink(s5, dev8)
     net.addLink(s5, dev9)
-
+"""
     info('*** Starting network\n')
     net.start()
     info('*** Testing connectivity\n')
