@@ -3,7 +3,47 @@ https://github.com/containernet/vim-emu/wiki/APIs --> VIM-EMU API
 #DEPLOY GATEWAY 2
 curl -X PUT http://127.0.0.1:5001/restapi/compute/dc1/GI2 -H 'Content-Type: application/json' -d '{"image":"constancegay/projet_sdci:gatewayD", "network":"(id=GI2-eth0,ip=10.0.0.216/24)"}'
 
+#DEPLOY LB
+curl -X PUT http://127.0.0.1:5001/restapi/compute/dc1/GI2 -H 'Content-Type: application/json' -d '{"image":"constancegay/projet_sdci:gatewayD", "network":"(id=GI2-eth0,ip=10.0.0.216/24)"}'
+
+
 #Reroute traffic to GATEWAY 2
+curl -X POST -d '{
+   	 "dpid": 2,
+    	"cookie": 0,
+    	"table_id": 0,
+    	"priority": 1111,
+    	"flags": 1,
+    	"match":{
+		"nw_dst": "10.0.0.202",
+        	"dl_type": 2048
+    	},
+   	"actions":[{"type": "SET_FIELD",
+   	        "field": "ipv4_dst",
+   	        "value": "10.0.0.216"},
+		{"type":"OUTPUT",
+		"port":"NORMAL"}
+    ]
+ }' http://localhost:8080/stats/flowentry/add
+
+curl -X POST -d '{
+   	 "dpid": 2,
+    	"cookie": 0,
+    	"table_id": 0,
+    	"priority": 1111,
+    	"flags": 1,
+    	"match":{
+		"nw_src": "10.0.0.216",
+        	"dl_type": 2048
+    	},
+   	"actions":[{"type": "SET_FIELD",
+   	        "field": "ipv4_src",
+   	        "value": "10.0.0.202"},
+		{"type":"OUTPUT",
+		"port":"NORMAL"}
+    ]
+ }' http://localhost:8080/stats/flowentry/add
+
 curl -X POST -d '{
    	 "dpid": 1,
     	"cookie": 0,
@@ -11,23 +51,15 @@ curl -X POST -d '{
     	"priority": 1111,
     	"flags": 1,
     	"match":{
-		"nw_src": "10.0.0.212",
 		"nw_dst": "10.0.0.202",
         	"dl_type": 2048
     	},
    	"actions":[{"type": "SET_FIELD",
    	        "field": "ipv4_dst",
    	        "value": "10.0.0.216"},
-		{"type":"SET_FIELD",
-		"field":"eth_dst",
-		"value":"86:2b:be:1b:27:e9"},
 		{"type":"OUTPUT",
 		"port":"NORMAL"}
     ]
  }' http://localhost:8080/stats/flowentry/add
 
 
-{
-            "type":"SET_NW_SRC",
-            "nw_src": 10.0.0.216
-        }
