@@ -7,8 +7,7 @@ RUN 	apt-get update \
 	&& npm install yargs \
         && npm install systeminformation \
 	&& mv /usr/sbin/tcpdump /usr/bin/tcpdump \
-	&& wget http://homepages.laas.fr/smedjiah/tmp/device.js \
-	&& touch test.txt
+	&& wget http://homepages.laas.fr/smedjiah/tmp/device.js
 
 ENV	loc_ip="10.0.0.204"
 ENV	loc_port="9001"

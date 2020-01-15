@@ -12,7 +12,7 @@ RUN 	apt-get update \
 	&& npm install http-forward \
         && npm install systeminformation \
 	&& mv /usr/sbin/tcpdump /usr/bin/tcpdump \
-	&& cat load_balancer.js > /home/load_balancer.js
+	&& cat scriptJS/load_balancer.js > /home/load_balancer.js
 
 ENV	loc_ip="10.0.0.216"
 ENV	loc_port="8181"
