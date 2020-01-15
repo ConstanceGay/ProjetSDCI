@@ -14,9 +14,9 @@ RUN 	apt-get update \
         && npm install systeminformation \
 	&& mv /usr/sbin/tcpdump /usr/bin/tcpdump \
 	&& wget http://homepages.laas.fr/smedjiah/tmp/gateway.js \
-	&& cat cpulat.js > /home/cpulat.js
+	&& cat scriptJS/cpulat.js > /home/cpulat.js
 
-ADD supervisord_gateway.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord/supervisord_gateway.conf /etc/supervisor/conf.d/supervisord.conf
 
 ENV	loc_ip="10.0.0.201"
 ENV	loc_port="8282"

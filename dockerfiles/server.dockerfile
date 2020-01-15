@@ -13,8 +13,8 @@ RUN	apt-get update && apt-get install -y \
         && npm install systeminformation \
 	&& mv /usr/sbin/tcpdump /usr/bin/tcpdump \
 	&& wget http://homepages.laas.fr/smedjiah/tmp/server.js \
-	&& cat cpulat.js > /home/cpulat.js
+	&& cat scriptJS/cpulat.js > /home/cpulat.js
 
-ADD supervisord_server.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord/supervisord_server.conf /etc/supervisor/conf.d/supervisord.conf
 
 ENTRYPOINT  ["/usr/bin/supervisord"] ; tail -f /dev/null
