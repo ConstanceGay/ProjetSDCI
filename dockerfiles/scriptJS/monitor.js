@@ -54,7 +54,8 @@ function getLatency(ip, port){
 
 
 
-app.get('/monitor/', function(req, res) {
+app.get('/monitor', function(req, res) {
+    console.log(req.body);
     cpuSRV = askCpu(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
     cpuGI = askCpu(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
     latSRV = getLatency(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);

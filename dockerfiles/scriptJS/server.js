@@ -128,6 +128,7 @@ function CPULoad(avgTime, callback) {
 
 
 app.get('/cpulat', function(req, res) {
+    console.log(req.body);
     // load average for the past 1000 milliseconds
     var cpuDataItem = CPULoad(1000, (load) => console.log((100*load).toFixed(1)));
 
