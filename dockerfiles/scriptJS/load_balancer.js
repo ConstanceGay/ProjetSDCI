@@ -27,9 +27,9 @@ app.post('/device/:dev/data', function(req, res) {
     var dev = req.params.dev;
     if (index == 0){
     console.log("Sending to gateway1");
-    console.log(REMOTE_ENDPOINT.IP)
+    console.log(REMOTE_ENDPOINT1.IP)
 	    doPOST(
-		'http://' + REMOTE_ENDPOINT.IP + ':' +REMOTE_ENDPOINT.PORT + '/device/' + dev + '/data',
+		'http://' + REMOTE_ENDPOINT1.IP + ':' +REMOTE_ENDPOINT1.PORT + '/device/' + dev + '/data',
 		req.body,
 		function(error, response, respBody) {
 		    console.log(respBody);
