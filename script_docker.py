@@ -194,8 +194,8 @@ def create_topology():
     net.addLink(s2, dc1)
 
     net.addLink(s3, s2)
-    #  net.addLink(s4, s2)
-    #  net.addLink(s5, s2)
+    net.addLink(s4, s2)
+    net.addLink(s5, s2)
 
     # ZONE 1
     net.addLink(s3, gf1)

@@ -10,7 +10,7 @@ RUN 	apt-get update \
 	&& wget http://homepages.laas.fr/smedjiah/tmp/gateway.js
 
 ENV	loc_ip="10.0.0.216"
-ENV	loc_port="8181"
+ENV	loc_port="9007"
 ENV	loc_name="GI2"
 ENV	rem_ip="10.0.0.203"
 ENV	rem_port="8080"
