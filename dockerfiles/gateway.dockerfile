@@ -13,18 +13,15 @@ RUN 	apt-get update \
 	&& npm install yargs \
         && npm install systeminformation \
 	&& mv /usr/sbin/tcpdump /usr/bin/tcpdump \
-	&& wget http://homepages.laas.fr/smedjiah/tmp/gateway.js \
-	&& cat scriptJS/cpulat.js > /home/cpulat.js
+	&& wget http://homepages.laas.fr/smedjiah/tmp/gateway.js
 
-ADD supervisord/supervisord_gateway.conf /etc/supervisor/conf.d/supervisord.conf
+ENV	loc_ip="10.0.0.202"
+ENV	loc_port="8181"
+ENV	loc_name="GI"
+ENV	rem_ip="10.0.0.203"
+ENV	rem_port="8080"
+ENV	rem_name="srv"
 
-ENV	loc_ip="10.0.0.201"
-ENV	loc_port="8282"
-ENV	loc_name="GF1"
-ENV	rem_ip="10.0.0.202"
-ENV	rem_port="8181"
-ENV	rem_name="GI"
-
-ENTRYPOINT ["/usr/bin/supervisord"] ; tail -f /dev/null
+ENTRYPOINT node gateway.js --local_ip $loc_ip --local_port $loc_port --local_name $loc_name --remote_ip $rem_ip --remote_port $rem_port --remote_name $rem_name ; tail -f /dev/null
 
 

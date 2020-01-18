@@ -33,10 +33,12 @@ var GI_ENDPOINT = {IP : argv.gi_ip, PORT : argv.gi_port, NAME : argv.gi_name};
 
 
 // cpu load of the monitored component
+/*
 function askCpu(ip, port) {
-    var cpuLoad = parseInt(request('http://' + ip + ':' + port + '/cpulat'), 10);
+    var cpuLoad = request.get('http://' + ip + ':' + port + '/cpulat').response;
     return cpuLoad;
 }
+*/
 
 // network latency of the monitored component
 function getLatency(ip, port){
@@ -53,14 +55,14 @@ function getLatency(ip, port){
 }
 
 
-
 app.get('/monitor', function(req, res) {
     console.log(req.body);
-    cpuSRV = askCpu(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
-    cpuGI = askCpu(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
+    //cpuSRV = askCpu(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
+    //cpuGI = askCpu(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
     latSRV = getLatency(SRV_ENDPOINT.IP, SRV_ENDPOINT.PORT);
     latGI = getLatency(GI_ENDPOINT.IP, GI_ENDPOINT.PORT);
-    res.send({CPUSRV : cpuSRV}, {CPUGI : cpuGI}, {LATSRV : latSRV}, {LATGI : latGI});
+    //res.send({CPUSRV : cpuSRV, CPUGI : cpuGI, LATSRV : latSRV, LATGI : latGI});
+    res.send({LATSRV : latSRV, LATGI : latGI});
 });
 
 

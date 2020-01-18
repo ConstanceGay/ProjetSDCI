@@ -95,28 +95,12 @@ function cpuAverage() {
   return {idle: totalIdle / cpus.length,  total: totalTick / cpus.length};
 }
 
-// found on https://gist.github.com/bag-man/5570809
-function CPULoad(avgTime, callback) {
-  this.samples = [];
-  this.samples[1] = cpuAverage();
-  this.refresh = setInterval(() => {
-    this.samples[0] = this.samples[1];
-    this.samples[1] = cpuAverage();
-    var totalDiff = this.samples[1].total - this.samples[0].total;
-    var idleDiff = this.samples[1].idle - this.samples[0].idle;
-    callback(1 - idleDiff / totalDiff);
-  }, avgTime);
-}
-
-
-
 app.get('/cpulat', function(req, res) {
     console.log(req.body);
     // load average for the past 1000 milliseconds
-    var cpuDataItem = CPULoad(1000, (load) => console.log((100*load).toFixed(1)));
-
-    res.write(cpuDataItem.toString());
-    res.end();
+    var CPUav = cpuAverage();	
+    CPUav = ((1 - CPUav.idle / CPUav.total)*100).toFixed(1);
+    res.send(CPUav);
 });
 
 app.post('/gateways/register', function(req, res) {
