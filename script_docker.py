@@ -73,7 +73,7 @@ def create_topology():
     GI = net.addDocker('GI', ip='10.0.0.202', dimage="constancegay/projet_sdci:gateway",
                        environment={"loc_ip": "10.0.0.202",
                                     "loc_port": "8181",
-                                    "loc_name": "srv",
+                                    "loc_name": "GI",
                                     "rem_ip": "10.0.0.203",
                                     "rem_port": "8080",
                                     "rem_name": "srv"})
