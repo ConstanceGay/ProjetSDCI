@@ -11,11 +11,13 @@ var REMOTE_ENDPOINT1 = {IP : argv.remote_ip, PORT : argv.remote_port, NAME : arg
 http.createServer(function (req, res) {
 	index = 1 - index;
 	if (index == 0) {
+	   console.log(req.body);
     	   req.forward = {target:'http://' + REMOTE_ENDPOINT1.IP + ':' + REMOTE_ENDPOINT1.PORT + '/'};
     	   forward(req, res);
 	}
 	if (index == 1) {
+	   console.log(req.body);
     	   req.forward = {target:'http://' + REMOTE_ENDPOINT2.IP + ':' + REMOTE_ENDPOINT2.PORT + '/'};
     	   forward(req, res);
 	}
-}).listen(8880);
+}).listen(8181);
