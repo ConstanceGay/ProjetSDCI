@@ -6,7 +6,7 @@ var argv = require('yargs').argv;
 
 var LOCAL_ENDPOINT = {IP : argv.local_ip, PORT : argv.local_port, NAME : argv.local_name};
 var REMOTE_ENDPOINT1 = {IP : argv.remote_ip, PORT : argv.remote_port, NAME : argv.remote_name};
-var REMOTE_ENDPOINT1 = {IP : argv.remote_ip, PORT : argv.remote_port, NAME : argv.remote_name};
+var REMOTE_ENDPOINT2 = {IP : argv.remote_ip, PORT : argv.remote_port, NAME : argv.remote_name};
 
 http.createServer(function (req, res) {
 	index = 1 - index;
