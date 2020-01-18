@@ -182,8 +182,8 @@ def create_topology():
     s1 = net.addSwitch('s1')
     s2 = net.addSwitch('s2')
     s3 = net.addSwitch('s3')
-    #   s4 = net.addSwitch('s4')
-    #   s5 = net.addSwitch('s5')
+    s4 = net.addSwitch('s4')
+    s5 = net.addSwitch('s5')
 
     info('*** Creating links\n')
     net.addLink(s1, srv)
