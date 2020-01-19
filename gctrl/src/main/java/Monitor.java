@@ -7,6 +7,9 @@ import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestWord;
 import de.vandermeer.asciithemes.a7.A7_Grids;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import org.json.JSONObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -84,7 +87,7 @@ class Monitor {
                 try {
                     //TODO: Remove this
                     Thread.sleep(period);
-                    Main.shared_knowledge.insert_in_tab(new java.sql.Timestamp(new java.util.Date().getTime()), get_fake_data());
+                    Main.shared_knowledge.insert_in_tab(new java.sql.Timestamp(new java.util.Date().getTime()), get_data());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -97,7 +100,30 @@ class Monitor {
     private int get_data() {
         //Call Sensors
         /*TODO*/
-        return 0;
+        int latgi = 0;
+        try {
+            //send request to vnfmonitor
+            Process process = Runtime.getRuntime().exec("sudo docker exec mn.mon curl http://localhost:8383/monitor");
+
+            //build response into a string
+            StringBuilder output = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line + "\n");
+            }
+
+            //extract response from GI
+            JSONObject obj = new JSONObject(output.toString());
+            latgi = obj.getInt("LATGI");
+
+            Main.logger(this.getClass().getSimpleName(), "Mon latgi = " + latgi);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return latgi;
     }
 
     private double get_fake_data() {
