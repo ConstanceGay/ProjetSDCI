@@ -21,7 +21,7 @@ class SDNCtrlAPI {
 
         //reroute requests going to GI to load_balancer
         try {
-            Process process = Runtime.getRuntime().exec("curl -X POST -d '{\n" +
+        	String req1 = "curl -X POST -d '{\n" +
                     "   \t\"dpid\": 2,\n" +
                     "    \t\"cookie\": 0,\n" +
                     "    \t\"table_id\": 0,\n" +
@@ -37,7 +37,9 @@ class SDNCtrlAPI {
                     "\t\t{\"type\":\"OUTPUT\",\n" +
                     "\t\t\"port\":\"NORMAL\"}\n" +
                     "    ]\n" +
-                    " }' http://localhost:8080/stats/flowentry/add");
+                    " }' http://localhost:8080/stats/flowentry/add";
+        	System.out.println(req1);
+            Process process = Runtime.getRuntime().exec(req1);
         } catch (IOException e) {
             Main.logger(this.getClass().getSimpleName(), "Couldn't reroute traffic 1");
         }
@@ -91,7 +93,7 @@ class SDNCtrlAPI {
 
     String remove_less_important_traffic(String importantsrcip) {
         String status = "OK";
-        Main.logger(this.getClass().getSimpleName(), "importantsrcip = " + importantsrcip);
+        //Main.logger(this.getClass().getSimpleName(), "importantsrcip = " + importantsrcip);
         //TODO
 
         return status;

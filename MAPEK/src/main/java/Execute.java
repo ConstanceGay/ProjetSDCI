@@ -60,7 +60,7 @@ class Execute {
                         Main.logger(this.getClass().getSimpleName(), status);
                         break;
                     case "UC6":
-                        Main.logger(this.getClass().getSimpleName(), "Removing less important traffic");
+                        Main.logger(this.getClass().getSimpleName(), "Previous plan failed");
                         status = sdnctlrapi.remove_less_important_traffic(Main.shared_knowledge.getImportantsrcip());
                         Main.logger(this.getClass().getSimpleName(), status);
                         break;
