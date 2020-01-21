@@ -21,23 +21,7 @@ class SDNCtrlAPI {
 
         //reroute requests going to GI to load_balancer
         try {
-        	String req1 = "curl -X POST -d '{\n" +
-                    "   \t\"dpid\": 2,\n" +
-                    "    \t\"cookie\": 0,\n" +
-                    "    \t\"table_id\": 0,\n" +
-                    "    \t\"priority\": 1111,\n" +
-                    "    \t\"flags\": 1,\n" +
-                    "    \t\"match\":{\n" +
-                    "\t\t\"nw_dst\": \""+ oldgwip +"\",\n" +
-                    "        \t\"dl_type\": 2048\n" +
-                    "    \t},\n" +
-                    "   \t\"actions\":[{\"type\": \"SET_FIELD\",\n" +
-                    "   \t        \"field\": \"ipv4_dst\",\n" +
-                    "   \t        \"value\": \""+lbip+"\"},\n" +
-                    "\t\t{\"type\":\"OUTPUT\",\n" +
-                    "\t\t\"port\":\"NORMAL\"}\n" +
-                    "    ]\n" +
-                    " }' http://localhost:8080/stats/flowentry/add";
+        	String req1 = "curl -X POST -d '{dpid\": 2,cookie\": 0,table_id\": 0,priority\": 1111,flags\": 1,match\":{nw_dst\": \""+ oldgwip +"\",dl_type\": 2048},actions:[{\"type\": \"SET_FIELD\",field\": \"ipv4_dst\",value\": \""+lbip+"\"},{\"type\":\"OUTPUT\",port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
         	System.out.println(req1);
             Process process = Runtime.getRuntime().exec(req1);
         } catch (IOException e) {
@@ -47,43 +31,18 @@ class SDNCtrlAPI {
         // make frames coming from load_balancer look like they're from GI
         // so the ACK/SYN-ACK/ACK part of tcp works with the GFi
         try {
-            Process process2 = Runtime.getRuntime().exec("curl -X POST -d '{\n" +
-                    "   \t \"dpid\": 2,\n" +
-                    "    \t\"cookie\": 0,\n" +
-                    "    \t\"table_id\": 0,\n" +
-                    "    \t\"priority\": 1111,\n" +
-                    "    \t\"flags\": 1,\n" +
-                    "    \t\"match\":{\n" +
-                    "\t\t\"nw_src\": \""+lbip+"\",\n" +
-                    "        \t\"dl_type\": 2048\n" +
-                    "    \t},\n" +
-                    "   \t\"actions\":[{\"type\": \"SET_FIELD\",\n" +
-                    "   \t        \"field\": \"ipv4_src\",\n" +
-                    "   \t        \"value\": \""+oldgwip+"\"},\n" +
-                    "\t\t{\"type\":\"OUTPUT\",\n" +
-                    "\t\t\"port\":\"NORMAL\"}\n" +
-                    "    ]\n" +
-                    " }' http://localhost:8080/stats/flowentry/add");
+        	String req2 = "curl -X POST -d '{dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 1111,\"flags\": 1,\"match\":{\"nw_src\": \""+lbip+"\",\"dl_type\": 2048},\"actions\":[{\"type\": \"SET_FIELD\",\"field\": \"ipv4_src\",value\": \""+oldgwip+"\"},{\"type\":\"OUTPUT\",port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
+            System.out.println(req2);
+        	Process process2 = Runtime.getRuntime().exec(req2);
         } catch (IOException e) {
             Main.logger(this.getClass().getSimpleName(), "Couldn't reroute traffic 2");
         }
 
         try {
-            Process process2 = Runtime.getRuntime().exec("curl -X POST -d '{\n" +
-                    "   \t \"dpid\": 2,\n" +
-                    "    \t\"cookie\": 0,\n" +
-                    "    \t\"table_id\": 0,\n" +
-                    "    \t\"priority\": 2000,\n" +
-                    "    \t\"flags\": 1,\n" +
-                    "    \t\"match\":{\n" +
-                    "\t\t\"nw_src\": \""+lbip+"\",\n" +
-                    "\t\t\"nw_dst\": \""+oldgwip+"\",\n" +
-                    "        \t\"dl_type\": 2048\n" +
-                    "    \t},\n" +
-                    "   \t\"actions\":[{\"type\":\"OUTPUT\",\n" +
-                    "\t\t\"port\":\"NORMAL\"}\n" +
-                    "    ]\n" +
-                    " }' http://localhost:8080/stats/flowentry/add");
+        	String req3 = "curl -X POST -d '{\"dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 2000,\"flags\": 1,\"match\":{\"nw_src\": \""+lbip+"\",\"nw_dst\": \""+oldgwip+"\",\"dl_type\": 2048},\"actions\":[{\"type\":\"OUTPUT\",\"port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
+        	System.out.println(req3);
+            Process process2 = Runtime.getRuntime().exec(req3);
+            
         } catch (IOException e) {
             Main.logger(this.getClass().getSimpleName(), "Couldn't reroute traffic 3");
         }
