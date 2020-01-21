@@ -55,7 +55,7 @@ class SDNCtrlAPI {
         */
         
         try {
-			Process process = Runtime.getRuntime().exec("bash deploy_LB.sh");
+			Process process = Runtime.getRuntime().exec("bash reroute.sh");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
