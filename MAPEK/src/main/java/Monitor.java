@@ -103,8 +103,8 @@ class Monitor {
         double latence = 0.0;
         try {
             //send request to vnfmonitor
-            //Process process = Runtime.getRuntime().exec("sudo docker exec mn.mon curl http://localhost:8383/monitor");
-            Process process = Runtime.getRuntime().exec("curl http://10.0.0.204:8383/monitor");
+            Process process = Runtime.getRuntime().exec("sudo docker exec mn.mon curl http://localhost:8383/monitor");
+            //Process process = Runtime.getRuntime().exec("curl http://10.0.0.204:8383/monitor");
 
             //build response into a string
             StringBuilder output = new StringBuilder();
