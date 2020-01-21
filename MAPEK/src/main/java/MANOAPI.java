@@ -34,7 +34,7 @@ class MANOAPI {
             while ((line = reader.readLine()) != null) {
                 output.append(line + "\n");
             }
-            System.out.println(output.toString());
+            //System.out.println(output.toString());
 
         } catch (IOException e){
             Main.logger(this.getClass().getSimpleName(), "gateway couldn't be launched");
@@ -50,7 +50,7 @@ class MANOAPI {
         for (Map<String, String> vnfsinfo : vnfsinfos) {
             ips.add(deploy_gw(vnfsinfo));
         }
-
+        
         try {
             Process process2 = Runtime.getRuntime().exec("curl -X PUT " +
                     "http://127.0.0.1:5001/restapi/compute/dc1/lb -H 'Content-Type: application/json' -d " +
@@ -63,12 +63,12 @@ class MANOAPI {
             while ((line = reader.readLine()) != null) {
                 output.append(line + "\n");
             }
-            System.out.println(output.toString());
+            //System.out.println(output.toString());
         } catch (IOException e){
             Main.logger(this.getClass().getSimpleName(), "server couldn't be launched");
         }
-
-
+		
+       
         return ips;
     }
 }
