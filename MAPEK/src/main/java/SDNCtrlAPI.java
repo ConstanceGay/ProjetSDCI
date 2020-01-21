@@ -22,12 +22,10 @@ class SDNCtrlAPI {
     
     public static void POSTRequest(String POST_PARAMS) throws IOException {
         System.out.println(POST_PARAMS);
-        URL obj = new URL("https://jsonplaceholder.typicode.com/posts");
+        URL obj = new URL("http://localhost:8080/stats/flowentry/add");
         HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
         postConnection.setRequestMethod("POST");
-        postConnection.setRequestProperty("userId", "a1bcdefgh");
-        postConnection.setRequestProperty("Content-Type", "application/json");
-        postConnection.setDoOutput(true);
+        //postConnection.setDoOutput(true);
         OutputStream os = postConnection.getOutputStream();
         os.write(POST_PARAMS.getBytes());
         os.flush();
@@ -56,7 +54,8 @@ class SDNCtrlAPI {
 
         //reroute requests going to GI to load_balancer
         try {
-        	String req1 = "curl -X POST -d '{\"dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 1111,\"flags\": 1,\"match\":{\"nw_dst\":\""+oldgwip+"\",\"dl_type\": 2048},\"actions\":[{\"type\": \"SET_FIELD\",\"field\": \"ipv4_dst\",\"value\":\""+lbip+"\"},{\"type\":\"OUTPUT\",\"port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
+        	//String req1 = "curl -X POST -d '{\"dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 1111,\"flags\": 1,\"match\":{\"nw_dst\":\""+oldgwip+"\",\"dl_type\": 2048},\"actions\":[{\"type\": \"SET_FIELD\",\"field\": \"ipv4_dst\",\"value\":\""+lbip+"\"},{\"type\":\"OUTPUT\",\"port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
+        	String req1 = "{\"dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 1111,\"flags\": 1,\"match\":{\"nw_dst\":\""+oldgwip+"\",\"dl_type\": 2048},\"actions\":[{\"type\": \"SET_FIELD\",\"field\": \"ipv4_dst\",\"value\":\""+lbip+"\"},{\"type\":\"OUTPUT\",\"port\":\"NORMAL\"}]}";
         	POSTRequest(req1);
         	System.out.println(req1);
             //Process process = Runtime.getRuntime().exec(req1);
