@@ -22,7 +22,7 @@ class SDNCtrlAPI {
         //reroute requests going to GI to load_balancer
         try {
         	//String req1 = "curl -X POST -d '{\"dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 1111,\"flags\": 1,\"match\":{\"nw_dst\":\""+oldgwip+"\",\"dl_type\": 2048},\"actions\":[{\"type\": \"SET_FIELD\",\"field\": \"ipv4_dst\",\"value\":\""+lbip+"\"},{\"type\":\"OUTPUT\",\"port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
-        	String req1 = "curl -d '{\"dpid\": 2,\"cookie\": 0,\"table_id\": 0,\"priority\": 1111,\"flags\": 1,\"match\":{\"nw_dst\":\""+oldgwip+"\",\"dl_type\": 2048},\"actions\":[{\"type\": \"SET_FIELD\",\"field\": \"ipv4_dst\",\"value\":\""+lbip+"\"},{\"type\":\"OUTPUT\",\"port\":\"NORMAL\"}]}' http://localhost:8080/stats/flowentry/add";
+        	String req1 = "curl '{dpid: 2,cookie: 0,table_id: 0,priority: 1111,flags: 1,match:{nw_dst:"+oldgwip+",dl_type: 2048},actions:[{type: SET_FIELD,field: ipv4_dst,value:"+lbip+"},{type:OUTPUT,port:NORMAL}]}' http://localhost:8080/stats/flowentry/add";
         	
         	System.out.println(req1);
             Process process = Runtime.getRuntime().exec(req1);
