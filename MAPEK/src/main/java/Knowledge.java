@@ -43,7 +43,7 @@ class Knowledge {
     private final List<Map<String, String>> gwsinfo = new ArrayList<>();
     private final String olddestip = "10.0.0.202";
     private String newdestip;
-    private String oldgwip;
+    private String oldgwip= "10.0.0.202";
     private String lbip;
     private List<String> newgwsip;
     private final String importantsrcip = "192.168.0.1";
