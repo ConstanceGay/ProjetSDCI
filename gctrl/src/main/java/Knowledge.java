@@ -30,17 +30,18 @@ class Knowledge {
 
     static final int moving_wind = 10;
     static final int horizon = 3;
-    static final String gw = "GW_I";
-    static final double gw_lat_threshold = 20;
+    static final String gw = "GI";
+    static final double gw_lat_threshold = 0.01;
 
     /*TODO : edit symptom, rfc, workflow_lists, plan*/
     private static final List<String> symptom = Arrays.asList("N/A", "NOK", "OK");
     private static final List<String> rfc = Arrays.asList("DoNotDoAnything", "DecreaseLatencyIn" + gw);
-    private static final List<String> workflow_lists = Arrays.asList("UC1", "UC2/UC3", "UC4/UC5/UC6");
+    //private static final List<String> workflow_lists = Arrays.asList("UC1", "UC2/UC3", "UC4/UC5/UC6");
+    private static final List<String> workflow_lists = Arrays.asList("UC1", "UC4/UC5", "UC4/UC5/UC6");
     private static final List<String> plan = Arrays.asList("A", "B", "C");
     private final Map<String, String> gwinfo = new HashMap<>();
     private final List<Map<String, String>> gwsinfo = new ArrayList<>();
-    private final String olddestip = "192.168.0.2";
+    private final String olddestip = "10.0.0.202";
     private String newdestip;
     private String oldgwip;
     private String lbip;
@@ -56,14 +57,14 @@ class Knowledge {
         store_rfcs();
         store_plans();
         store_execution_workflow();
-        //TODO : update gwinfo
-        gwinfo.put("name", "gw");
-        gwinfo.put("image", "alpine:latest");
-        gwinfo.put("net", "new_network");
+
+        gwinfo.put("name", "GI2");
+        gwinfo.put("image", "constancegay/projet_sdci:gatewayD");
+        gwinfo.put("net", "net");
 
         gwsinfo.add(0, gwinfo);
-        gwsinfo.add(1, gwinfo);
-        gwsinfo.add(2, gwinfo);
+        //gwsinfo.add(1, gwinfo);
+        //gwsinfo.add(2, gwinfo);
 
         Main.logger(this.getClass().getSimpleName(), "Knowledge Starting");
 

@@ -97,13 +97,14 @@ class Monitor {
         ).start();
     }
 
-    private int get_data() {
+    private double get_data() {
         //Call Sensors
         /*TODO*/
-        int latgi = 0;
+        double latence = 0.0;
         try {
             //send request to vnfmonitor
-            Process process = Runtime.getRuntime().exec("sudo docker exec mn.mon curl http://localhost:8383/monitor");
+            //Process process = Runtime.getRuntime().exec("sudo docker exec mn.mon curl http://localhost:8383/monitor");
+            Process process = Runtime.getRuntime().exec("curl http://10.0.0.204:8383/monitor");
 
             //build response into a string
             StringBuilder output = new StringBuilder();
@@ -113,17 +114,18 @@ class Monitor {
                 output.append(line + "\n");
             }
 
-            //extract response from GI
+            //extract response for the GI
+            //reponse for the server is also avaible at LATSRV
             JSONObject obj = new JSONObject(output.toString());
-            latgi = obj.getInt("LATGI");
+            latence = obj.getDouble("LATGI");
 
-            Main.logger(this.getClass().getSimpleName(), "Mon latgi = " + latgi);
+            Main.logger(this.getClass().getSimpleName(), "Latence du GI  = " + latence);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return latgi;
+        return latence;
     }
 
     private double get_fake_data() {
