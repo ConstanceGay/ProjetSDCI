@@ -25,7 +25,7 @@ class MANOAPI {
             Process process = Runtime.getRuntime().exec("curl -X PUT " +
                     "http://localhost:5001/restapi/compute/dc1/"+ vnfinfos.get("name")+" -H 'Content-Type: " +
                     "application/json' -d '{\"image\":\""+ vnfinfos.get("image")+"\", \"network\":\"" +
-                    "(id=GI2-eth0,ip="+ ip + "/24)\"}'");
+                    "(id=GI2-eth0,ip=10.0.0.216/24)\"}'");
 
             //build response into a string
             StringBuilder output = new StringBuilder();
@@ -54,8 +54,7 @@ class MANOAPI {
         try {
             Process process2 = Runtime.getRuntime().exec("curl -X PUT " +
                     "http://127.0.0.1:5001/restapi/compute/dc1/lb -H 'Content-Type: application/json' -d " +
-                    "'{\"image\":\"constancegay/projet_sdci:lb\", \"network\":\"(id=lb-eth0,ip="
-                    + ips.get(0)+"/24)\"}'");
+                    "'{\"image\":\"constancegay/projet_sdci:lb\", \"network\":\"(id=lb-eth0,ip=10.0.0.217/24)\"}'");
           //build response into a string
             StringBuilder output = new StringBuilder();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process2.getInputStream()));
